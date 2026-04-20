@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonContent, IonButton } from '@ionic/angular/standalone';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +9,16 @@ import { IonContent, IonButton } from '@ionic/angular/standalone';
   imports: [IonButton, IonContent],
 })
 export class HomePage {
-  constructor() {}
+  data: any;
+
+  constructor(private ms: MoviesService) {}
+
+  ngOnInit() {
+    this.getData();
+  }
+
+  async getData() {
+    this.data = await this.ms.getTrendingToday();
+    console.log(this.data);
+  }
 }
