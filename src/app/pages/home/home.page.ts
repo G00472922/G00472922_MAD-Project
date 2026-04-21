@@ -19,7 +19,7 @@ import { MoviesService } from 'src/app/services/movies.service';
     IonSearchbar,
     IonRow,
     IonButton,
-    RouterLink,
+    // RouterLink,
     IonGrid,
     IonCol,
     MovieCardComponent,
@@ -27,16 +27,40 @@ import { MoviesService } from 'src/app/services/movies.service';
   ],
 })
 export class HomePage implements OnInit {
-  data: any;
+  movies: any;
+  pageHeading: string;
+  searched: string;
+  isEmpty: boolean;
 
-  constructor(private ms: MoviesService) {}
+  constructor(private ms: MoviesService) {
+    this.pageHeading = "Today's Trending";
+    this.searched = '';
+    this.isEmpty = false;
+  }
 
   ngOnInit() {
     this.getTrending();
   }
 
   async getTrending() {
-    this.data = await this.ms.getTrendingToday();
-    console.log(this.data);
+    this.isEmpty = false;
+    this.movies = await this.ms.getTrendingToday();
+  }
+
+  async getInputMovie() {
+    this.movies = await this.ms.getSearchedMovie(this.searched);
+  }
+
+  handleSearch(event: any) {
+    this.searched = event.target.value;
+    if (this.searched === '') {
+      this.isEmpty = true;
+      this.movies = null;
+      this.pageHeading = "Today's Trending";
+    } else {
+      this.isEmpty = false;
+      this.pageHeading = `Showing "${this.searched}"`;
+      this.getInputMovie();
+    }
   }
 }

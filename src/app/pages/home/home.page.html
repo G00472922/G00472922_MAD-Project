@@ -1,30 +1,32 @@
 <ion-content>
-  <ion-button [routerLink]="['/home']">Home</ion-button>
-  <ion-button [routerLink]="['/movie-details']"> Movie Details </ion-button>
-  <ion-button [routerLink]="['/details']"> Details </ion-button>
-  <ion-button [routerLink]="['/favourites']">Favourites</ion-button>
+  <div class="ion-margin-horizontal ion-margin-top">
+    <ion-searchbar
+      (ionInput)="handleSearch($event)"
+      debounce="350"
+    ></ion-searchbar>
+  </div>
   <ion-grid>
-    <ion-searchbar></ion-searchbar>
-    <h1 class="ion-margin-horizontal">Today's Trending Movies</h1>
-    <ion-row>
-      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
-        <app-movie-card></app-movie-card>
+    @switch (true) { @case (movies !== null) {
+    <h1 class="ion-margin-horizontal">{{ pageHeading }} Movies</h1>
+    } @default {
+    <h1 class="ion-margin-horizontal">No matching movies</h1>
+    <ion-button class="ion-padding-horizontal" (click)="getTrending()">
+      Show Trending Movies
+    </ion-button>
+    } }
+
+    <ion-row class="ion-align-items-stretch ion-margin-horizontal">
+      @for (movie of movies; track movie.id) {
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3" size-xl="2">
+        <app-movie-card
+          [id]="movie.id"
+          [title]="movie.title"
+          [releaseDate]="movie.release_date"
+          [overview]="movie.overview"
+          [poster]="movie.poster"
+        ></app-movie-card>
       </ion-col>
-      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
-        <app-movie-card></app-movie-card>
-      </ion-col>
-      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
-        <app-movie-card></app-movie-card>
-      </ion-col>
-      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
-        <app-movie-card></app-movie-card>
-      </ion-col>
-      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
-        <app-movie-card></app-movie-card>
-      </ion-col>
-      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
-        <app-movie-card></app-movie-card>
-      </ion-col>
+      }
     </ion-row>
   </ion-grid>
 </ion-content>

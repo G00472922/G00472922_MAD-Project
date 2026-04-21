@@ -6,7 +6,7 @@ import { API_KEY } from './environment.local';
 
 export const environment = {
   production: false,
-  apiKey: `?api_key=${API_KEY}`,
+  apiKey: `api_key=${API_KEY}`,
   apiUrl: 'https://api.themoviedb.org/3',
 };
 

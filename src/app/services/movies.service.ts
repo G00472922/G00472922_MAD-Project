@@ -17,12 +17,14 @@ export class MoviesService {
   }
 
   async getTrendingToday() {
-    this.options = { url: `${this.baseUrl}/trending/movie/day${this.apiKey}` };
+    this.options = { url: `${this.baseUrl}/trending/movie/day?${this.apiKey}` };
     const res: HttpResponse = await CapacitorHttp.get(this.options);
 
     const mappedRes = res.data.results.map(
-      ({ id, overview, poster_path }: any) => ({
+      ({ id, title, release_date, overview, poster_path }: any) => ({
         id,
+        title,
+        release_date,
         overview,
         poster: poster_path,
       }),
@@ -30,21 +32,23 @@ export class MoviesService {
     return mappedRes;
   }
 
-  // async getSearchedMovie(search: string) {
-  //   this.options = {
-  //     url: `${this.baseUrl}/search/movie?query=${search}&${this.apiKey}`,
-  //   };
-  //   const res: HttpResponse = await CapacitorHttp.get(this.options);
+  async getSearchedMovie(search: string) {
+    this.options = {
+      url: `${this.baseUrl}/search/movie?query=${search}&${this.apiKey}`,
+    };
+    const res: HttpResponse = await CapacitorHttp.get(this.options);
 
-  //   const mappedRes = res.data.results.map(
-  //     ({ id, overview, poster_path }: any) => ({
-  //       id,
-  //       overview,
-  //       poster: poster_path,
-  //     }),
-  //   );
-  //   return mappedRes;
-  // }
+    const mappedRes = res.data.results.map(
+      ({ id, title, release_date, overview, poster_path }: any) => ({
+        id,
+        title,
+        release_date,
+        overview,
+        poster: poster_path,
+      }),
+    );
+    return mappedRes;
+  }
 
   // constructor(private storage: Storage) {
   //   this.init();
