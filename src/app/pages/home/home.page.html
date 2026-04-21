@@ -1,11 +1,30 @@
-<p>home works!</p>
 <ion-content>
-  <div class="ion-display-flex">
-    <div class="ion-display-flex ion-flex-column">
-      <ion-button href="/home">Home</ion-button>
-      <ion-button href="/movie-details"> Movie Details </ion-button>
-      <ion-button href="/details"> Details </ion-button>
-      <ion-button href="/favourites">Favourites</ion-button>
-    </div>
-  </div>
+  <ion-button [routerLink]="['/home']">Home</ion-button>
+  <ion-button [routerLink]="['/movie-details']"> Movie Details </ion-button>
+  <ion-button [routerLink]="['/details']"> Details </ion-button>
+  <ion-button [routerLink]="['/favourites']">Favourites</ion-button>
+  <ion-grid>
+    <ion-searchbar></ion-searchbar>
+    <h1 class="ion-margin-horizontal">Today's Trending Movies</h1>
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
+        <app-movie-card></app-movie-card>
+      </ion-col>
+      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
+        <app-movie-card></app-movie-card>
+      </ion-col>
+      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
+        <app-movie-card></app-movie-card>
+      </ion-col>
+      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
+        <app-movie-card></app-movie-card>
+      </ion-col>
+      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
+        <app-movie-card></app-movie-card>
+      </ion-col>
+      <ion-col size="12" size-md="6" size-lg="4" size-xl="2">
+        <app-movie-card></app-movie-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
