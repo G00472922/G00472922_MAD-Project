@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   IonButton,
   IonGrid,
@@ -9,6 +9,7 @@ import {
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-home',
@@ -25,8 +26,17 @@ import { MovieCardComponent } from '../../components/movie-card/movie-card.compo
     IonContent,
   ],
 })
-export class HomePage {
-  constructor() {}
+export class HomePage implements OnInit {
+  data: any;
 
-  ngOnInit() {}
+  constructor(private ms: MoviesService) {}
+
+  ngOnInit() {
+    this.getTrending();
+  }
+
+  async getTrending() {
+    this.data = await this.ms.getTrendingToday();
+    console.log(this.data);
+  }
 }
