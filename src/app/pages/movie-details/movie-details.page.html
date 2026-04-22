@@ -1,11 +1,69 @@
-<p>movie-details works!</p>
 <ion-content>
-  <div class="ion-display-flex">
-    <div class="ion-display-flex ion-flex-column">
-      <ion-button routerLink="/home">Home</ion-button>
-      <ion-button routerLink="/movie-details"> Movie Details </ion-button>
-      <ion-button routerLink="/details"> Details </ion-button>
-      <ion-button routerLink="/favourites">Favourites</ion-button>
-    </div>
+  <div class="ion-display-flex content-breakpoint">
+    <ion-card class="ion-display-flex overview-breakpoint">
+      <img [src]="`https://image.tmdb.org/t/p/w500${movieOverview.poster}`" />
+      <ion-card-content
+        class="ion-display-flex ion-flex-column ion-flex-1 ion-justify-content-between"
+      >
+        <p class="ion-padding-bottom">{{movieOverview.overview}}</p>
+        <ion-button expand="full" (click)="favedMovie()">
+          @if (isFaved) { Remove from favourites
+          <ion-icon slot="end" md="heart"></ion-icon>
+          } @else { Add to favourites
+          <ion-icon slot="end" md="heart-outline"></ion-icon>
+          }
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Cast</ion-label>
+        </ion-item>
+        <ion-grid slot="content">
+          <ion-row class="ion-align-items-stretch">
+            @for (cast of movieCast; track cast.cast_id) {
+            <ion-col
+              size="12"
+              size-lg="6"
+              size-xl="4"
+              class="ion-align-content-center"
+            >
+              <app-short-person-card
+                [id]="cast.id"
+                [name]="cast.name"
+                [role]="cast.character"
+                [profile]="cast.profile_path"
+              ></app-short-person-card>
+            </ion-col>
+            }
+          </ion-row>
+        </ion-grid>
+      </ion-accordion>
+      <ion-accordion value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>Crew</ion-label>
+        </ion-item>
+        <ion-grid slot="content">
+          <ion-row class="ion-align-items-stretch">
+            @for (crew of movieCrew; track crew.credit_id) {
+            <ion-col
+              size="12"
+              size-lg="6"
+              size-xl="4"
+              class="ion-align-content-center"
+            >
+              <app-short-person-card
+                [id]="crew.id"
+                [name]="crew.name"
+                [role]="crew.job"
+                [profile]="crew.profile_path"
+              ></app-short-person-card>
+            </ion-col>
+            }
+          </ion-row>
+        </ion-grid>
+      </ion-accordion>
+    </ion-accordion-group>
   </div>
 </ion-content>

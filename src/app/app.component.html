@@ -1,7 +1,15 @@
 <ion-app>
   <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-title> G00472922 </ion-title>
+    <ion-toolbar class="ion-display-flex ion-flex-row">
+      <ion-title>G00472922</ion-title>
+      <ion-buttons slot="end">
+        <ion-button [routerLink]="['/home']" fill="clear">
+          <ion-icon color="primary" slot="icon-only" md="home"></ion-icon>
+        </ion-button>
+        <ion-button [routerLink]="['/favourites']" fill="clear">
+          <ion-icon color="primary" slot="icon-only" md="heart"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 

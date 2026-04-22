@@ -1,0 +1,63 @@
+div ion-card {
+  flex: 1;
+  height: fit-content;
+}
+
+div ion-accordion-group {
+  flex: 4;
+}
+
+@media (1101px <= width <= 1200px) {
+  div ion-accordion-group {
+    flex: 3;
+  }
+}
+
+@media (992px <= width <= 1100px) {
+  div ion-accordion-group {
+    flex: 2;
+  }
+}
+
+@media (min-width: 992px) {
+  .content-breakpoint {
+    flex-direction: row;
+  }
+
+  .overview-breakpoint {
+    flex-direction: column;
+  }
+
+  ion-card img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 991px) {
+  .content-breakpoint {
+    flex-direction: column;
+  }
+}
+
+@media (600px <= width <= 992px) {
+  .overview-breakpoint {
+    flex-direction: row;
+  }
+
+  ion-card img {
+    width: 30%;
+    height: auto;
+  }
+}
+
+@media (max-width: 599px) {
+  .overview-breakpoint {
+    flex-direction: column;
+  }
+
+  ion-card img {
+    width: 100%;
+    height: auto;
+  }
+}

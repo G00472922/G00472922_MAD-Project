@@ -1,7 +1,7 @@
 <ion-card class="ion-display-flex ion-flex-column">
   <img
     alt="{{ title() }}"
-    [src]="`https://image.tmdb.org/t/p/original/${poster()}`"
+    [src]="`https://image.tmdb.org/t/p/w500${poster()}`"
     class="ion-align-self-center"
   />
   <div class="ion-display-flex ion-flex-column ion-flex-grow-1">
@@ -12,7 +12,9 @@
     <ion-card-content class="ion-display-flex ion-flex-column ion-flex-grow-1">
       <p class="ion-padding-bottom">{{ overview() }}</p>
       <div class="ion-display-flex ion-flex-row ion-justify-content-between">
-        <ion-button [routerLink]="['/']">More Details</ion-button>
+        <ion-button [routerLink]="['/movie-details', id()]">
+          More Details
+        </ion-button>
         <ion-button fill="clear" (click)="favedMovie()">
           @if (isFaved) {
             <ion-icon slot="icon-only" md="heart"></ion-icon>

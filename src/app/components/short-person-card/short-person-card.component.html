@@ -1,0 +1,11 @@
+<ion-card button [routerLink]="['/details', id()]">
+  <ion-card-content class="ion-display-flex ion-align-items-center">
+    <ion-thumbnail>
+      <img alt="{{ name() }}" src="{{ profileUrl }}" />
+    </ion-thumbnail>
+    <div class="ion-display-flex ion-flex-column ion-margin-start">
+      <h3>{{ role() }}</h3>
+      <ion-label>{{ name() }}</ion-label>
+    </div>
+  </ion-card-content>
+</ion-card>

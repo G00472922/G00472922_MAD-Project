@@ -50,6 +50,23 @@ export class MoviesService {
     return mappedRes;
   }
 
+  async getMovieOverview(id: string) {
+    this.options = {
+      url: `${this.baseUrl}/movie/${id}?${this.apiKey}`,
+    };
+    const res: HttpResponse = await CapacitorHttp.get(this.options);
+    return { poster: res.data.poster_path, overview: res.data.overview };
+  }
+
+  async getMovieDetails(id: string) {
+    this.options = {
+      url: `${this.baseUrl}/movie/${id}/credits?${this.apiKey}`,
+    };
+
+    const res: HttpResponse = await CapacitorHttp.get(this.options);
+    return [res.data.cast, res.data.crew];
+  }
+
   // constructor(private storage: Storage) {
   //   this.init();
   // }
