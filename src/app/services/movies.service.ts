@@ -67,6 +67,24 @@ export class MoviesService {
     return [res.data.cast, res.data.crew];
   }
 
+  async getPersonDetails(id: string) {
+    this.options = {
+      url: `${this.baseUrl}/person/${id}?${this.apiKey}`,
+    };
+
+    const res: HttpResponse = await CapacitorHttp.get(this.options);
+    return res.data;
+  }
+
+  async getPersonCredits(id: string) {
+    this.options = {
+      url: `${this.baseUrl}/person/${id}/movie_credits?${this.apiKey}`,
+    };
+
+    const res: HttpResponse = await CapacitorHttp.get(this.options);
+    return res.data;
+  }
+
   // constructor(private storage: Storage) {
   //   this.init();
   // }
