@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   imports: [IonItem, IonLabel, IonThumbnail, RouterLink],
 })
 export class CreditsListComponent implements OnInit {
-  id = input.required<string>();
+  id = input.required<number>();
   title = input.required<string>();
   poster = input.required<string>();
   isLastItem = input.required<boolean>();

@@ -41,6 +41,7 @@ import { heartOutline, heart } from 'ionicons/icons';
 })
 export class MovieDetailsPage implements OnInit {
   routeId: string | null;
+  movieId: number;
   movieCast: any;
   movieCrew: any;
   movieOverview: { poster: string; overview: string };
@@ -51,6 +52,7 @@ export class MovieDetailsPage implements OnInit {
     private ms: MoviesService,
   ) {
     this.routeId = this.route.snapshot.paramMap.get('id');
+    this.movieId = -1;
     this.movieOverview = { poster: '', overview: '' };
     this.isFaved = false;
 
@@ -58,14 +60,14 @@ export class MovieDetailsPage implements OnInit {
   }
 
   ngOnInit() {
+    if (this.routeId) this.movieId = parseInt(this.routeId);
+
     this.movieDetails();
   }
 
   async movieDetails() {
-    if (!this.routeId) return;
-
-    const retrievedData = await this.ms.getMovieDetails(this.routeId);
-    this.movieOverview = await this.ms.getMovieOverview(this.routeId);
+    const retrievedData = await this.ms.getMovieDetails(this.movieId);
+    this.movieOverview = await this.ms.getMovieOverview(this.movieId);
 
     this.movieCast = retrievedData[0];
     this.movieCrew = retrievedData[1];

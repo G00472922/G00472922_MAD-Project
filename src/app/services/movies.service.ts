@@ -50,7 +50,7 @@ export class MoviesService {
     return mappedRes;
   }
 
-  async getMovieOverview(id: string) {
+  async getMovieOverview(id: number) {
     this.options = {
       url: `${this.baseUrl}/movie/${id}?${this.apiKey}`,
     };
@@ -58,7 +58,7 @@ export class MoviesService {
     return { poster: res.data.poster_path, overview: res.data.overview };
   }
 
-  async getMovieDetails(id: string) {
+  async getMovieDetails(id: number) {
     this.options = {
       url: `${this.baseUrl}/movie/${id}/credits?${this.apiKey}`,
     };
@@ -67,7 +67,7 @@ export class MoviesService {
     return [res.data.cast, res.data.crew];
   }
 
-  async getPersonDetails(id: string) {
+  async getPersonDetails(id: number) {
     this.options = {
       url: `${this.baseUrl}/person/${id}?${this.apiKey}`,
     };
@@ -76,7 +76,7 @@ export class MoviesService {
     return res.data;
   }
 
-  async getPersonCredits(id: string) {
+  async getPersonCredits(id: number) {
     this.options = {
       url: `${this.baseUrl}/person/${id}/movie_credits?${this.apiKey}`,
     };

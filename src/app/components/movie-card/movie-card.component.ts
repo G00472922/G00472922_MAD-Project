@@ -28,7 +28,7 @@ import { heartOutline, heart } from 'ionicons/icons';
   ],
 })
 export class MovieCardComponent {
-  id = input.required<string>();
+  id = input.required<number>();
   title = input.required<string>();
   releaseDate = input.required<string>();
   overview = input.required<string>();

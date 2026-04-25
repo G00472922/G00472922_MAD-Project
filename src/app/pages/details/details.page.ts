@@ -33,7 +33,7 @@ import { CreditsListComponent } from 'src/app/components/credits-list/credits-li
 })
 export class DetailsPage implements OnInit {
   routeId: string | null;
-  personId: string;
+  personId: number;
   personName: string;
   profile: string;
   aka: string[];
@@ -49,7 +49,7 @@ export class DetailsPage implements OnInit {
     private ms: MoviesService,
   ) {
     this.routeId = this.route.snapshot.paramMap.get('id');
-    this.personId = '';
+    this.personId = -1;
     this.personName = '';
     this.profile = '';
     this.aka = [];
@@ -60,14 +60,16 @@ export class DetailsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.personInfo();
-    this.personCredits();
+    if (this.routeId) this.personId = parseInt(this.routeId);
+
+    if (this.personId !== -1) {
+      this.personInfo();
+      this.personCredits();
+    }
   }
 
   async personInfo() {
-    if (!this.routeId) return;
-
-    const objDetails = await this.ms.getPersonDetails(this.routeId);
+    const objDetails = await this.ms.getPersonDetails(this.personId);
 
     const {
       id,
@@ -91,13 +93,9 @@ export class DetailsPage implements OnInit {
   }
 
   async personCredits() {
-    if (!this.routeId) return;
-
-    const objCredits = await this.ms.getPersonCredits(this.routeId);
+    const objCredits = await this.ms.getPersonCredits(this.personId);
 
     const { cast, crew } = objCredits;
-
-    console.log(cast, crew);
 
     this.castCredits = cast;
     this.crewCredits = crew;
