@@ -68,10 +68,10 @@ export class MovieDetailsPage implements OnInit {
   }
 
   ngOnInit() {
-    if (this.movieId !== -1) {
-      this.movieDetails();
-      this.checkFavourite();
-    }
+    if (this.routeId) this.movieId = parseInt(this.routeId);
+
+    this.movieDetails();
+    this.checkFavourite();
   }
 
   async movieDetails() {

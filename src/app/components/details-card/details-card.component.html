@@ -1,8 +1,5 @@
 <ion-card class="ion-display-flex">
-  <img
-    alt="{{ name() }}"
-    [src]="`https://image.tmdb.org/t/p/w500${profile()}`"
-  />
+  <img alt="{{ name() }}" src="{{ profileUrl }}" />
   <div class="ion-display-flex ion-flex-column ion-flex-1">
     <ion-card-header>
       <ion-card-title>{{ name() }}</ion-card-title>

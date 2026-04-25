@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
   imports: [IonLabel, IonCardContent, IonCard, IonThumbnail, RouterLink],
 })
 export class ShortPersonCardComponent implements OnInit {
-  id = input.required<string>();
+  id = input.required<number>();
   name = input.required<string>();
   role = input.required<string>();
   profile = input.required<string | null>();

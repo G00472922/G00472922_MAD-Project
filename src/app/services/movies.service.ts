@@ -109,7 +109,7 @@ export class MoviesService {
     return [res.data.cast, res.data.crew];
   }
 
-  async getPersonDetails(id: string) {
+  async getPersonDetails(id: number) {
     this.options = {
       url: `${this.baseUrl}/person/${id}?${this.apiKey}`,
     };
@@ -118,7 +118,7 @@ export class MoviesService {
     return res.data;
   }
 
-  async getPersonCredits(id: string) {
+  async getPersonCredits(id: number) {
     this.options = {
       url: `${this.baseUrl}/person/${id}/movie_credits?${this.apiKey}`,
     };
