@@ -12,8 +12,46 @@ export class MoviesService {
 
   private options: HttpOptions;
 
-  constructor() {
+  constructor(private storage: Storage) {
+    this.init();
     this.options = { url: '' };
+  }
+
+  async init() {
+    await this.storage.create();
+  }
+
+  async get(key: string) {
+    return await this.storage.get(key);
+  }
+
+  async getMovieById(id: number) {
+    const getFaves = (await this.storage.get('favourites')) || [];
+    const exists = getFaves.find((m: { id: number }) => m.id === id);
+
+    return exists;
+  }
+
+  async setFavourite(
+    key: string,
+    value: { id: number; title: string; poster: string },
+  ) {
+    const getFaves = (await this.storage.get('favourites')) || [];
+    const exists = getFaves.find((m: { id: number }) => m.id === value.id);
+
+    if (!exists) {
+      getFaves.push(value);
+      await this.storage.set(key, getFaves);
+    }
+  }
+
+  async removeFavourite(key: string, value: number) {
+    const getFaves = (await this.storage.get('favourites')) || [];
+    const filteredFaves = getFaves.filter(
+      (m: { id: number }) => m.id !== value,
+    );
+
+    await this.storage.set(key, filteredFaves);
   }
 
   async getTrendingToday() {
@@ -50,15 +88,19 @@ export class MoviesService {
     return mappedRes;
   }
 
-  async getMovieOverview(id: string) {
+  async getMovieOverview(id: number) {
     this.options = {
       url: `${this.baseUrl}/movie/${id}?${this.apiKey}`,
     };
     const res: HttpResponse = await CapacitorHttp.get(this.options);
-    return { poster: res.data.poster_path, overview: res.data.overview };
+    return {
+      title: res.data.title,
+      poster: res.data.poster_path,
+      overview: res.data.overview,
+    };
   }
 
-  async getMovieDetails(id: string) {
+  async getMovieDetails(id: number) {
     this.options = {
       url: `${this.baseUrl}/movie/${id}/credits?${this.apiKey}`,
     };
@@ -84,20 +126,4 @@ export class MoviesService {
     const res: HttpResponse = await CapacitorHttp.get(this.options);
     return res.data;
   }
-
-  // constructor(private storage: Storage) {
-  //   this.init();
-  // }
-
-  // async init() {
-  //   await this.storage.create();
-  // }
-
-  // async set(key: string, value: any) {
-  //   await this.storage.set(key, value);
-  // }
-
-  // async get(key: string) {
-  //   return await this.storage.get(key);
-  // }
 }

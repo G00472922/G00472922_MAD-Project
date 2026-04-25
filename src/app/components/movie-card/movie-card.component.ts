@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import {
   IonCardHeader,
   IonCardTitle,
@@ -11,6 +11,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { heartOutline, heart } from 'ionicons/icons';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-movie-card',
@@ -27,22 +28,43 @@ import { heartOutline, heart } from 'ionicons/icons';
     RouterLink,
   ],
 })
-export class MovieCardComponent {
-  id = input.required<string>();
+export class MovieCardComponent implements OnInit {
+  id = input.required<number>();
   title = input.required<string>();
   releaseDate = input.required<string>();
   overview = input.required<string>();
   poster = input.required<string>();
-
+  userFaves = input.required<{ id: number; title: string; poster: string }[]>();
   isFaved: boolean;
 
-  constructor() {
+  constructor(private ms: MoviesService) {
     this.isFaved = false;
 
     addIcons({ heartOutline, heart });
   }
 
-  favedMovie() {
+  ngOnInit() {
+    for (const faved of this.userFaves()) {
+      if (this.id() === faved.id) {
+        this.isFaved = true;
+        break;
+      }
+    }
+  }
+
+  async favedMovie() {
+    if (!this.isFaved) {
+      const movie = {
+        id: this.id(),
+        title: this.title(),
+        poster: this.poster(),
+      };
+
+      await this.ms.setFavourite('favourites', movie);
+    } else {
+      await this.ms.removeFavourite('favourites', this.id());
+    }
+
     this.isFaved = !this.isFaved;
   }
 }

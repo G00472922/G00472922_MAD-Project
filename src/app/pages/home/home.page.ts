@@ -7,7 +7,6 @@ import {
   IonContent,
   IonSearchbar,
 } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
 import { MoviesService } from 'src/app/services/movies.service';
 
@@ -19,7 +18,6 @@ import { MoviesService } from 'src/app/services/movies.service';
     IonSearchbar,
     IonRow,
     IonButton,
-    // RouterLink,
     IonGrid,
     IonCol,
     MovieCardComponent,
@@ -31,6 +29,7 @@ export class HomePage implements OnInit {
   pageHeading: string;
   searched: string;
   isEmpty: boolean;
+  favourites: any;
 
   constructor(private ms: MoviesService) {
     this.pageHeading = "Today's Trending";
@@ -40,11 +39,16 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getTrending();
+    this.checkFavourite();
   }
 
   async getTrending() {
     this.isEmpty = false;
     this.movies = await this.ms.getTrendingToday();
+  }
+
+  async checkFavourite() {
+    this.favourites = await this.ms.get('favourites');
   }
 
   async getInputMovie() {
