@@ -1,0 +1,22 @@
+@media (min-width: 992px) {
+  ion-card {
+    flex-direction: row;
+  }
+
+  ion-card img {
+    width: 35%;
+    align-self: baseline;
+  }
+}
+
+@media (max-width: 991px) {
+  ion-card {
+    flex-direction: column;
+  }
+
+  ion-card img {
+    width: 50%;
+    height: auto;
+    align-self: center;
+  }
+}

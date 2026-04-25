@@ -1,11 +1,58 @@
-<p>details works!</p>
 <ion-content>
-  <div class="ion-display-flex">
-    <div class="ion-display-flex ion-flex-column">
-      <ion-button routerLink="/home">Home</ion-button>
-      <ion-button routerLink="/movie-details"> Movie Details </ion-button>
-      <ion-button routerLink="/details"> Details </ion-button>
-      <ion-button routerLink="/favourites">Favourites</ion-button>
-    </div>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="1" size-md="2" size-lg="3"></ion-col>
+      <ion-col size="10" size-md="8" size-lg="6">
+        <app-details-card
+          [id]="personId"
+          [name]="personName"
+          [profile]="profile"
+          [aka]="aka"
+          [birthday]="birthday"
+          [deathday]="deathday"
+          [birthplace]="birthplace"
+          [biography]="biography"
+        ></app-details-card>
+      </ion-col>
+      <ion-col size="1" size-md="2" size-lg="3"></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="1" size-md="2" size-lg="3"></ion-col>
+      <ion-col size="10" size-md="8" size-lg="6">
+        <ion-card>
+          @if (castCredits && castCredits.length !== 0) {
+          <ion-card-header>
+            <ion-card-title>Filmography (cast member)</ion-card-title>
+          </ion-card-header>
+          <ion-list>
+            @for (cast of castCredits; track $index) {
+            <app-credits-list
+              [id]="cast.id"
+              [title]="cast.title"
+              [poster]="cast.poster_path"
+              [isLastItem]="castCredits.length - 1 === $index ? true : false"
+            ></app-credits-list>
+            }
+          </ion-list>
+
+          } @if (crewCredits && crewCredits.length !== 0) {
+          <ion-card-header>
+            <ion-card-title>Filmography (crew member)</ion-card-title>
+          </ion-card-header>
+          <ion-list>
+            @for (crew of crewCredits; track $index) {
+            <app-credits-list
+              [id]="crew.id"
+              [title]="crew.title"
+              [poster]="crew.poster_path"
+              [isLastItem]="crewCredits.length - 1 === $index ? true : false"
+            ></app-credits-list>
+            }
+          </ion-list>
+          }
+        </ion-card>
+      </ion-col>
+      <ion-col size="1" size-md="2" size-lg="3"></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
