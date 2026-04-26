@@ -1,11 +1,30 @@
-<p>favourites works!</p>
 <ion-content>
-  <div class="ion-display-flex">
-    <div class="ion-display-flex ion-flex-column">
-      <ion-button routerLink="/home">Home</ion-button>
-      <ion-button routerLink="/movie-details"> Movie Details </ion-button>
-      <ion-button routerLink="/details"> Details </ion-button>
-      <ion-button routerLink="/favourites">Favourites</ion-button>
-    </div>
-  </div>
+  <ion-grid>
+    <ion-row>
+      @for (fave of (favourites$ | async); track $index) {
+      <ion-col size="2">
+        <ion-card>
+          <img
+            alt="{{ fave.title }}"
+            [src]="`https://image.tmdb.org/t/p/w500${fave.poster}`"
+          />
+          <ion-card-header>
+            <ion-card-title>{{fave.title}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button [routerLink]="['/movie-details', fave.id]">
+              More Details
+            </ion-button>
+            <app-favourite-button
+              [btnType]="'icon'"
+              [id]="fave.id"
+              [title]="fave.title"
+              [poster]="fave.poster"
+            ></app-favourite-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
 </ion-content>

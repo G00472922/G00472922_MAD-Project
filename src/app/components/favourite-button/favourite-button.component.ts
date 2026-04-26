@@ -17,7 +17,7 @@ export class FavouriteButtonComponent implements OnInit {
   id = input.required<number>();
   title = input.required<string>();
   poster = input.required<string>();
-  favorites$ = this.fs.favorites$;
+  favourites$ = this.fs.favourites$;
   isFaved: boolean;
 
   constructor(private fs: FavouritesService) {
@@ -27,13 +27,13 @@ export class FavouriteButtonComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fs.favorites$.subscribe((faves) => {
+    this.fs.favourites$.subscribe((faves) => {
       this.isFaved = faves.includes(this.id());
     });
   }
 
-  get isFavorite(): Observable<boolean> {
-    return this.fs.favorites$.pipe(
+  get isFavourite(): Observable<boolean> {
+    return this.fs.favourites$.pipe(
       map((favs: { id: any }[]) =>
         favs.some((m: { id: any }) => m.id === this.id()),
       ),
@@ -46,6 +46,6 @@ export class FavouriteButtonComponent implements OnInit {
       title: this.title(),
       poster: this.poster(),
     };
-    this.fs.toggleFavorite(movie);
+    this.fs.toggleFavourite(movie);
   }
 }
