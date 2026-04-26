@@ -1,51 +1,66 @@
 import { Component, OnInit, input } from '@angular/core';
+
 import {
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardSubtitle,
-  IonCardContent,
   IonAccordion,
   IonAccordionGroup,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
   IonItem,
   IonLabel,
 } from '@ionic/angular/standalone';
+
+import { MemberDetails } from 'src/app/models/Movie.model';
 
 @Component({
   selector: 'app-details-card',
   templateUrl: './details-card.component.html',
   styleUrls: ['./details-card.component.scss'],
   imports: [
-    IonLabel,
-    IonItem,
+    IonAccordion,
     IonAccordionGroup,
+    IonCard,
     IonCardContent,
+    IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
-    IonCardHeader,
-    IonCard,
-    IonAccordion,
+    IonItem,
+    IonLabel,
   ],
 })
 export class DetailsCardComponent implements OnInit {
-  id = input.required<number>();
-  name = input.required<string>();
-  profile = input.required<string | null>();
-  aka = input.required<string[]>();
-  birthday = input.required<string>();
-  deathday = input.required<string>();
-  birthplace = input.required<string>();
-  biography = input.required<string>();
-  profileUrl: string;
+  member = input.required<MemberDetails>();
+
+  id: number;
+  name: string;
+  profile?: string;
+  aka?: string[];
+  birthday?: string;
+  deathday?: string;
+  birthplace?: string;
+  biography?: string;
 
   constructor() {
-    this.profileUrl = '';
+    this.id = -1;
+    this.name = '';
+    this.profile = '';
+    this.aka = [];
+    this.birthday = '';
+    this.deathday = '';
+    this.birthplace = '';
+    this.biography = '';
   }
 
   ngOnInit() {
-    this.profileUrl =
-      this.profile() === ''
-        ? 'https://ionicframework.com/docs/img/demos/avatar.svg'
-        : `https://image.tmdb.org/t/p/w500${this.profile()}`;
+    this.id = this.member().id;
+    this.name = this.member().memberName;
+    this.profile = this.member().profile;
+    this.aka = this.member().aka;
+    this.birthday = this.member().birthday;
+    this.deathday = this.member().deathday;
+    this.birthplace = this.member().birthplace;
+    this.biography = this.member().biography;
   }
 }

@@ -1,7 +1,14 @@
 <ion-card button [routerLink]="['/details', id()]">
   <ion-card-content class="ion-display-flex ion-align-items-center">
     <ion-thumbnail>
-      <img alt="{{ name() }}" src="{{ profileUrl }}" />
+      <img
+        alt="{{ name() }}"
+        src="{{
+          profile() === '' || profile() === null
+            ? 'https://ionicframework.com/docs/img/demos/avatar.svg'
+            : `https://image.tmdb.org/t/p/w500${profile()}`
+        }}"
+      />
     </ion-thumbnail>
     <div class="ion-display-flex ion-flex-column ion-margin-start">
       <h3>{{ role() }}</h3>

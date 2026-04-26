@@ -1,19 +1,26 @@
 <ion-card class="ion-display-flex">
-  <img alt="{{ name() }}" src="{{ profileUrl }}" />
+  <img
+    alt="{{ name }}"
+    src="{{
+      profile === '' || profile === null
+        ? 'https://ionicframework.com/docs/img/demos/avatar.svg'
+        : `https://image.tmdb.org/t/p/w500${profile}`
+    }}"
+  />
   <div class="ion-display-flex ion-flex-column ion-flex-1">
     <ion-card-header>
-      <ion-card-title>{{ name() }}</ion-card-title>
-      @if (aka().length !== 0) {
+      <ion-card-title>{{ name }}</ion-card-title>
+      @if (aka && aka.length !== 0) {
         <ion-card-subtitle>
-          @for (name of aka(); track $index) {
-            {{ aka().length - 1 !== $index ? `${name},` : name }}
+          @for (name of aka; track $index) {
+            {{ aka.length - 1 !== $index ? `${name},` : name }}
           }
         </ion-card-subtitle>
       }
     </ion-card-header>
     <ion-card-content class="ion-display-flex ion-flex-column ion-flex-grow-1">
       <p class="ion-padding-bottom">
-        {{ biography() === "" ? "No biography available" : biography() }}
+        {{ biography === "" ? "No biography available" : biography }}
       </p>
       <ion-accordion-group>
         <ion-accordion value="first">
@@ -21,11 +28,9 @@
             <ion-label>More Details</ion-label>
           </ion-item>
           <div class="ion-padding" slot="content">
-            <p>Born: {{ birthday() === null ? "N/A" : birthday() }}</p>
-            <p>
-              Birthplace: {{ birthplace() === null ? "N/A" : birthplace() }}
-            </p>
-            <p>Death: {{ deathday() === null ? "N/A" : deathday() }}</p>
+            <p>Born: {{ birthday === null ? "N/A" : birthday }}</p>
+            <p>Birthplace: {{ birthplace === null ? "N/A" : birthplace }}</p>
+            <p>Death: {{ deathday === null ? "N/A" : deathday }}</p>
           </div>
         </ion-accordion>
       </ion-accordion-group>

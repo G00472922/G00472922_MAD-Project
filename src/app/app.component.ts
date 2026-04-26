@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 import {
   IonApp,
-  IonRouterOutlet,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonIcon,
   IonButton,
   IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonTitle,
+  IonToolbar,
+  IonRouterOutlet,
 } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
+
 import { addIcons } from 'ionicons';
 import { heart, home } from 'ionicons/icons';
 
@@ -18,15 +20,15 @@ import { heart, home } from 'ionicons/icons';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   imports: [
-    IonButtons,
-    IonButton,
-    IonIcon,
     IonApp,
-    IonRouterOutlet,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
+    IonButton,
+    IonButtons,
     IonContent,
+    IonHeader,
+    IonIcon,
+    IonTitle,
+    IonToolbar,
+    IonRouterOutlet,
     RouterLink,
   ],
 })

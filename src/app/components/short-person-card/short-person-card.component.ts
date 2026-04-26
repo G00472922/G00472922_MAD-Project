@@ -1,33 +1,24 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 import {
   IonCard,
   IonCardContent,
   IonLabel,
   IonThumbnail,
 } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-short-person-card',
   templateUrl: './short-person-card.component.html',
   styleUrls: ['./short-person-card.component.scss'],
-  imports: [IonLabel, IonCardContent, IonCard, IonThumbnail, RouterLink],
+  imports: [RouterLink, IonCardContent, IonCard, IonLabel, IonThumbnail],
 })
-export class ShortPersonCardComponent implements OnInit {
+export class ShortPersonCardComponent {
   id = input.required<number>();
   name = input.required<string>();
-  role = input.required<string>();
-  profile = input.required<string | null>();
-  profileUrl: string;
+  role = input<string>();
+  profile = input<string | null>();
 
-  constructor() {
-    this.profileUrl = '';
-  }
-
-  ngOnInit() {
-    this.profileUrl =
-      this.profile() === null
-        ? 'https://ionicframework.com/docs/img/demos/avatar.svg'
-        : `https://image.tmdb.org/t/p/w500${this.profile()}`;
-  }
+  constructor() {}
 }

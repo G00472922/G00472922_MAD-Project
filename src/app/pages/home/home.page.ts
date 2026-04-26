@@ -1,43 +1,41 @@
 import { Component, OnInit } from '@angular/core';
+
 import {
   IonButton,
-  IonGrid,
-  IonRow,
   IonCol,
   IonContent,
+  IonGrid,
+  IonRow,
   IonSearchbar,
 } from '@ionic/angular/standalone';
+
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
+
 import { MoviesService } from 'src/app/services/movies.service';
-import { FavouritesService } from 'src/app/services/favourites.service';
+
+import { Movie } from 'src/app/models/Movie.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   imports: [
-    IonSearchbar,
-    IonRow,
     IonButton,
-    IonGrid,
     IonCol,
-    MovieCardComponent,
     IonContent,
+    IonGrid,
+    IonRow,
+    IonSearchbar,
+    MovieCardComponent,
   ],
 })
 export class HomePage implements OnInit {
-  movies: any;
-  pageHeading: string;
+  movies: Movie[] | null;
   searched: string;
-  isEmpty: boolean;
 
-  constructor(
-    private ms: MoviesService,
-    private fs: FavouritesService,
-  ) {
-    this.pageHeading = "Today's Trending";
+  constructor(private ms: MoviesService) {
+    this.movies = null;
     this.searched = '';
-    this.isEmpty = false;
   }
 
   ngOnInit() {
@@ -45,7 +43,6 @@ export class HomePage implements OnInit {
   }
 
   async getTrending() {
-    this.isEmpty = false;
     this.movies = await this.ms.getTrendingToday();
   }
 
@@ -55,14 +52,6 @@ export class HomePage implements OnInit {
 
   handleSearch(event: any) {
     this.searched = event.target.value;
-    if (this.searched === '') {
-      this.isEmpty = true;
-      this.movies = null;
-      this.pageHeading = "Today's Trending";
-    } else {
-      this.isEmpty = false;
-      this.pageHeading = `Showing "${this.searched}"`;
-      this.getInputMovie();
-    }
+    this.searched === '' ? (this.movies = null) : this.getInputMovie();
   }
 }

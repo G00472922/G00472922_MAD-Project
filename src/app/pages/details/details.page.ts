@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import {
-  IonContent,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonList,
   IonCard,
   IonCardHeader,
   IonCardTitle,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonList,
+  IonRow,
 } from '@ionic/angular/standalone';
-import { ActivatedRoute } from '@angular/router';
-import { MoviesService } from 'src/app/services/movies.service';
-import { DetailsCardComponent } from '../../components/details-card/details-card.component';
+
 import { CreditsListComponent } from 'src/app/components/credits-list/credits-list.component';
+import { DetailsCardComponent } from 'src/app/components/details-card/details-card.component';
+
+import { MoviesService } from 'src/app/services/movies.service';
+
+import { MemberDetails, Movie } from 'src/app/models/Movie.model';
 
 @Component({
   selector: 'app-details',
@@ -20,84 +25,51 @@ import { CreditsListComponent } from 'src/app/components/credits-list/credits-li
   styleUrls: ['./details.page.scss'],
   imports: [
     IonCard,
-    IonList,
-    IonRow,
-    IonGrid,
-    IonContent,
-    DetailsCardComponent,
-    IonCol,
-    CreditsListComponent,
     IonCardHeader,
     IonCardTitle,
+    IonCol,
+    IonContent,
+    IonGrid,
+    IonList,
+    IonRow,
+    CreditsListComponent,
+    DetailsCardComponent,
   ],
 })
 export class DetailsPage implements OnInit {
-  routeId: string | null;
   personId: number;
-  personName: string;
-  profile: string;
-  aka: string[];
-  birthday: string;
-  deathday: string;
-  birthplace: string;
-  biography: string;
-  castCredits: any;
-  crewCredits: any;
+  member: MemberDetails;
+  castCredits: Movie[];
+  crewCredits: Movie[];
 
   constructor(
     private route: ActivatedRoute,
     private ms: MoviesService,
   ) {
-    this.routeId = this.route.snapshot.paramMap.get('id');
+    const routeId = this.route.snapshot.paramMap.get('id');
     this.personId = -1;
-    this.personName = '';
-    this.profile = '';
-    this.aka = [];
-    this.birthday = '';
-    this.deathday = '';
-    this.birthplace = '';
-    this.biography = '';
+    if (routeId) this.personId = parseInt(routeId);
+
+    this.member = { id: -1, memberName: '' };
+
+    this.castCredits = [];
+    this.crewCredits = [];
   }
 
   ngOnInit() {
-    if (this.routeId) this.personId = parseInt(this.routeId);
-
-    if (this.personId !== -1) {
-      this.personInfo();
-      this.personCredits();
-    }
+    this.memberInfo();
+    this.personCredits();
   }
 
-  async personInfo() {
-    const objDetails = await this.ms.getPersonDetails(this.personId);
-
-    const {
-      id,
-      name,
-      profile_path,
-      also_known_as,
-      birthday,
-      deathday,
-      place_of_birth,
-      biography,
-    } = objDetails;
-
-    this.personId = id;
-    this.personName = name;
-    this.profile = profile_path;
-    this.aka = also_known_as;
-    this.birthday = birthday;
-    this.deathday = deathday;
-    this.birthplace = place_of_birth;
-    this.biography = biography;
+  async memberInfo() {
+    this.member = await this.ms.getPersonDetails(this.personId);
   }
 
   async personCredits() {
-    const objCredits = await this.ms.getPersonCredits(this.personId);
+    const retrievedData = await this.ms.getPersonCredits(this.personId);
+    const { mappedCastMovies, mappedCrewMovies } = retrievedData;
 
-    const { cast, crew } = objCredits;
-
-    this.castCredits = cast;
-    this.crewCredits = crew;
+    this.castCredits = mappedCastMovies;
+    this.crewCredits = mappedCrewMovies;
   }
 }

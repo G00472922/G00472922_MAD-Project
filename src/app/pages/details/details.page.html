@@ -1,18 +1,10 @@
 <ion-content>
+  @if (member.id !== -1) {
   <ion-grid>
     <ion-row>
       <ion-col size="1" size-md="2" size-lg="3"></ion-col>
       <ion-col size="10" size-md="8" size-lg="6">
-        <app-details-card
-          [id]="personId"
-          [name]="personName"
-          [profile]="profile"
-          [aka]="aka"
-          [birthday]="birthday"
-          [deathday]="deathday"
-          [birthplace]="birthplace"
-          [biography]="biography"
-        ></app-details-card>
+        <app-details-card [member]="member"></app-details-card>
       </ion-col>
       <ion-col size="1" size-md="2" size-lg="3"></ion-col>
     </ion-row>
@@ -25,11 +17,11 @@
             <ion-card-title>Filmography (cast member)</ion-card-title>
           </ion-card-header>
           <ion-list>
-            @for (cast of castCredits; track $index) {
+            @for (movie of castCredits; track $index) {
             <app-credits-list
-              [id]="cast.id"
-              [title]="cast.title"
-              [poster]="cast.poster_path"
+              [id]="movie.id"
+              [title]="movie.title"
+              [poster]="movie.poster"
               [isLastItem]="castCredits.length - 1 === $index ? true : false"
             ></app-credits-list>
             }
@@ -40,11 +32,11 @@
             <ion-card-title>Filmography (crew member)</ion-card-title>
           </ion-card-header>
           <ion-list>
-            @for (crew of crewCredits; track $index) {
+            @for (movie of crewCredits; track $index) {
             <app-credits-list
-              [id]="crew.id"
-              [title]="crew.title"
-              [poster]="crew.poster_path"
+              [id]="movie.id"
+              [title]="movie.title"
+              [poster]="movie.poster"
               [isLastItem]="crewCredits.length - 1 === $index ? true : false"
             ></app-credits-list>
             }
@@ -55,4 +47,5 @@
       <ion-col size="1" size-md="2" size-lg="3"></ion-col>
     </ion-row>
   </ion-grid>
+  }
 </ion-content>

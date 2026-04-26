@@ -1,37 +1,40 @@
 import { Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
 import {
   IonButton,
   IonCard,
   IonCardHeader,
   IonCardContent,
   IonCardTitle,
-  IonGrid,
-  IonRow,
   IonCol,
   IonContent,
+  IonGrid,
+  IonRow,
 } from '@ionic/angular/standalone';
-import { FavouritesService } from 'src/app/services/favourites.service';
-import { RouterLink } from '@angular/router';
+
 import { FavouriteButtonComponent } from 'src/app/components/favourite-button/favourite-button.component';
-import { AsyncPipe } from '@angular/common';
+
+import { FavouritesService } from 'src/app/services/favourites.service';
 
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.page.html',
   styleUrls: ['./favourites.page.scss'],
   imports: [
-    IonCol,
-    IonRow,
-    IonCard,
+    AsyncPipe,
+    RouterLink,
     IonButton,
+    IonCard,
     IonCardHeader,
     IonCardContent,
     IonCardTitle,
-    IonGrid,
-    RouterLink,
-    FavouriteButtonComponent,
-    AsyncPipe,
+    IonCol,
     IonContent,
+    IonGrid,
+    IonRow,
+    FavouriteButtonComponent,
   ],
 })
 export class FavouritesPage {

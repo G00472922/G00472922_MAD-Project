@@ -4,17 +4,14 @@
   [routerLink]="['/movie-details', id()]"
 >
   <ion-thumbnail slot="start">
-    @if (poster() === null) {
-      <img
-        alt="{{ title() }}"
-        src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-      />
-    } @else {
-      <img
-        alt="{{ title() }}"
-        [src]="`https://image.tmdb.org/t/p/w500${poster()}`"
-      />
-    }
+    <img
+      alt="{{ title() }}"
+      src="{{
+        poster() === '' || poster() === null
+          ? 'https://ionicframework.com/docs/img/demos/thumbnail.svg'
+          : `https://image.tmdb.org/t/p/w500${poster()}`
+      }}"
+    />
   </ion-thumbnail>
   <ion-label>{{ title() }}</ion-label>
 </ion-item>

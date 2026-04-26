@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
 import { BehaviorSubject } from 'rxjs';
+import { Storage } from '@ionic/storage-angular';
+
+import { Movie } from 'src/app/models/Movie.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +17,12 @@ export class FavouritesService {
 
   async init() {
     await this.storage.create();
+
     const stored = (await this.storage.get('favourites')) || [];
     this.favouritesSubject.next(stored);
   }
 
-  async toggleFavourite(movie: { id: number; title: string; poster: string }) {
+  async toggleFavourite(movie: Movie) {
     const current = this.favouritesSubject.value;
     const exists = current.some((item) => item.id === movie.id);
     let updated;

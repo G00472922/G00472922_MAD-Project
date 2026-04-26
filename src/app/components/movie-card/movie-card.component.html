@@ -1,7 +1,11 @@
 <ion-card class="ion-display-flex ion-flex-column">
   <img
     alt="{{ title() }}"
-    [src]="`https://image.tmdb.org/t/p/w500${poster()}`"
+    src="{{
+      poster() === '' || poster() === null
+        ? 'https://ionicframework.com/docs/img/demos/thumbnail.svg'
+        : `https://image.tmdb.org/t/p/w500${poster()}`
+    }}"
     class="ion-align-self-center"
   />
   <div class="ion-display-flex ion-flex-column ion-flex-grow-1">
@@ -17,9 +21,7 @@
         </ion-button>
         <app-favourite-button
           [btnType]="'icon'"
-          [id]="id()"
-          [title]="title()"
-          [poster]="poster()"
+          [movie]="movie"
         ></app-favourite-button>
       </div>
     </ion-card-content>
