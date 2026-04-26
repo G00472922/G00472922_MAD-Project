@@ -1,0 +1,20 @@
+@switch (btnType()) {
+  @case ("full") {
+    <ion-button expand="full" (click)="toggle()">
+      {{ isFaved ? "Remove from favourites" : "Add to favourites" }}
+      <ion-icon
+        slot="end"
+        [md]="isFaved ? 'heart' : 'heart-outline'"
+      ></ion-icon>
+    </ion-button>
+  }
+  @case ("icon") {
+    <ion-button fill="clear" (click)="toggle()">
+      <ion-icon
+        slot="icon-only"
+        [md]="(isFavorite | async) ? 'heart' : 'heart-outline'"
+      ></ion-icon>
+    </ion-button>
+  }
+  @default {}
+}

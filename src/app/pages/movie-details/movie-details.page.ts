@@ -6,8 +6,6 @@ import {
   IonCol,
   IonCard,
   IonCardContent,
-  IonButton,
-  IonIcon,
   IonAccordionGroup,
   IonAccordion,
   IonItem,
@@ -20,6 +18,7 @@ import { MoviesService } from 'src/app/services/movies.service';
 import { ShortPersonCardComponent } from '../../components/short-person-card/short-person-card.component';
 import { addIcons } from 'ionicons';
 import { heartOutline, heart } from 'ionicons/icons';
+import { FavouriteButtonComponent } from 'src/app/components/favourite-button/favourite-button.component';
 
 @Component({
   selector: 'app-movie-details',
@@ -30,8 +29,6 @@ import { heartOutline, heart } from 'ionicons/icons';
     IonItem,
     IonAccordion,
     IonAccordionGroup,
-    IonIcon,
-    IonButton,
     IonCard,
     IonCol,
     IonRow,
@@ -41,6 +38,7 @@ import { heartOutline, heart } from 'ionicons/icons';
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
+    FavouriteButtonComponent,
   ],
 })
 export class MovieDetailsPage implements OnInit {
@@ -49,7 +47,6 @@ export class MovieDetailsPage implements OnInit {
   movieCast: any;
   movieCrew: any;
   movieOverview: { title: string; poster: string; overview: string };
-  isFaved: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,7 +59,6 @@ export class MovieDetailsPage implements OnInit {
     }
 
     this.movieOverview = { title: '', poster: '', overview: '' };
-    this.isFaved = false;
 
     addIcons({ heartOutline, heart });
   }
@@ -71,7 +67,6 @@ export class MovieDetailsPage implements OnInit {
     if (this.routeId) this.movieId = parseInt(this.routeId);
 
     this.movieDetails();
-    this.checkFavourite();
   }
 
   async movieDetails() {
@@ -80,28 +75,5 @@ export class MovieDetailsPage implements OnInit {
 
     this.movieCast = retrievedData[0];
     this.movieCrew = retrievedData[1];
-  }
-
-  async checkFavourite() {
-    const favourites = await this.ms.getMovieById(this.movieId);
-    if (favourites) this.isFaved = true;
-  }
-
-  async favedMovie() {
-    if (!this.routeId) return;
-
-    if (!this.isFaved) {
-      const movie = {
-        id: this.movieId,
-        title: this.movieOverview.title,
-        poster: this.movieOverview.poster,
-      };
-
-      await this.ms.setFavourite('favourites', movie);
-    } else {
-      await this.ms.removeFavourite('favourites', this.movieId);
-    }
-
-    this.isFaved = !this.isFaved;
   }
 }

@@ -15,13 +15,12 @@
         <ion-button [routerLink]="['/movie-details', id()]">
           More Details
         </ion-button>
-        <ion-button fill="clear" (click)="favedMovie()">
-          @if (isFaved) {
-            <ion-icon slot="icon-only" md="heart"></ion-icon>
-          } @else {
-            <ion-icon slot="icon-only" md="heart-outline"></ion-icon>
-          }
-        </ion-button>
+        <app-favourite-button
+          [btnType]="'icon'"
+          [id]="id()"
+          [title]="title()"
+          [poster]="poster()"
+        ></app-favourite-button>
       </div>
     </ion-card-content>
   </div>

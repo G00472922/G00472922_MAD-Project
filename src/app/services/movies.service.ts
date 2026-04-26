@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
 import { CapacitorHttp, HttpOptions, HttpResponse } from '@capacitor/core';
 import { environment as env } from 'src/environments/environment';
 
@@ -12,46 +11,8 @@ export class MoviesService {
 
   private options: HttpOptions;
 
-  constructor(private storage: Storage) {
-    this.init();
+  constructor() {
     this.options = { url: '' };
-  }
-
-  async init() {
-    await this.storage.create();
-  }
-
-  async get(key: string) {
-    return await this.storage.get(key);
-  }
-
-  async getMovieById(id: number) {
-    const getFaves = (await this.storage.get('favourites')) || [];
-    const exists = getFaves.find((m: { id: number }) => m.id === id);
-
-    return exists;
-  }
-
-  async setFavourite(
-    key: string,
-    value: { id: number; title: string; poster: string },
-  ) {
-    const getFaves = (await this.storage.get('favourites')) || [];
-    const exists = getFaves.find((m: { id: number }) => m.id === value.id);
-
-    if (!exists) {
-      getFaves.push(value);
-      await this.storage.set(key, getFaves);
-    }
-  }
-
-  async removeFavourite(key: string, value: number) {
-    const getFaves = (await this.storage.get('favourites')) || [];
-    const filteredFaves = getFaves.filter(
-      (m: { id: number }) => m.id !== value,
-    );
-
-    await this.storage.set(key, filteredFaves);
   }
 
   async getTrendingToday() {

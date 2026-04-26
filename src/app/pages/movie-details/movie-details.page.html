@@ -10,13 +10,12 @@
           class="ion-display-flex ion-flex-column ion-flex-1 ion-justify-content-between"
         >
           <p class="ion-padding-bottom">{{movieOverview.overview}}</p>
-          <ion-button expand="full" (click)="favedMovie()">
-            @if (isFaved) { Remove from favourites
-            <ion-icon slot="end" md="heart"></ion-icon>
-            } @else { Add to favourites
-            <ion-icon slot="end" md="heart-outline"></ion-icon>
-            }
-          </ion-button>
+          <app-favourite-button
+            [btnType]="'full'"
+            [id]="movieId"
+            [title]="movieOverview.title"
+            [poster]="movieOverview.poster"
+          ></app-favourite-button>
         </ion-card-content>
       </div>
     </ion-card>

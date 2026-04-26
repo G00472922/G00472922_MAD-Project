@@ -9,6 +9,7 @@ import {
 } from '@ionic/angular/standalone';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
 import { MoviesService } from 'src/app/services/movies.service';
+import { FavouritesService } from 'src/app/services/favourites.service';
 
 @Component({
   selector: 'app-home',
@@ -29,9 +30,11 @@ export class HomePage implements OnInit {
   pageHeading: string;
   searched: string;
   isEmpty: boolean;
-  favourites: any;
 
-  constructor(private ms: MoviesService) {
+  constructor(
+    private ms: MoviesService,
+    private fs: FavouritesService,
+  ) {
     this.pageHeading = "Today's Trending";
     this.searched = '';
     this.isEmpty = false;
@@ -39,16 +42,11 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getTrending();
-    this.checkFavourite();
   }
 
   async getTrending() {
     this.isEmpty = false;
     this.movies = await this.ms.getTrendingToday();
-  }
-
-  async checkFavourite() {
-    this.favourites = await this.ms.get('favourites');
   }
 
   async getInputMovie() {
