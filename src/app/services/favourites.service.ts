@@ -38,8 +38,4 @@ export class FavouritesService {
     await this.storage.set('favourites', updated);
     this.favouritesSubject.next(updated); // This broadcasts the change
   }
-
-  async get(key: string) {
-    return await this.storage.get(key);
-  }
 }

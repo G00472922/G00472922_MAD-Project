@@ -43,6 +43,8 @@ export class MovieCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.releaseDate());
+
     this.movie = { id: this.id(), title: this.title(), poster: this.poster() };
   }
 }

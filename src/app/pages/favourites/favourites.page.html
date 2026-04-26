@@ -1,26 +1,13 @@
 <ion-content>
   <ion-grid>
-    <ion-row>
+    <ion-row class="ion-align-items-stretch ion-margin-horizontal">
       @for (fave of (favourites$ | async); track $index) {
-      <ion-col size="2">
-        <ion-card>
-          <img
-            alt="{{ fave.title }}"
-            [src]="`https://image.tmdb.org/t/p/w500${fave.poster}`"
-          />
-          <ion-card-header>
-            <ion-card-title>{{fave.title}}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-button [routerLink]="['/movie-details', fave.id]">
-              More Details
-            </ion-button>
-            <app-favourite-button
-              [btnType]="'icon'"
-              [movie]="fave"
-            ></app-favourite-button>
-          </ion-card-content>
-        </ion-card>
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3" size-xl="2">
+        <app-movie-card
+          [id]="fave.id"
+          [title]="fave.title"
+          [poster]="fave.poster"
+        ></app-movie-card>
       </ion-col>
       }
     </ion-row>

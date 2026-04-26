@@ -46,8 +46,13 @@ div ion-accordion-group {
   }
 
   ion-card img {
-    width: 30%;
+    width: 40%;
     height: auto;
+  }
+
+  .card-detail-holder {
+    display: flex;
+    flex-direction: column;
   }
 }
 

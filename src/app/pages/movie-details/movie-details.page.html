@@ -1,9 +1,12 @@
 <ion-content>
   @if (movie.id !== -1) {
-  <div class="ion-display-flex content-breakpoint">
-    <ion-card class="ion-display-flex overview-breakpoint">
-      <img [src]="`https://image.tmdb.org/t/p/w500${movie.poster}`" />
-      <div>
+  <div class="ion-display-flex content-breakpoint ion-margin">
+    <ion-card class="ion-display-flex overview-breakpoint ion-margin-top">
+      <img
+        alt="{{ movie.title }}"
+        [src]="`https://image.tmdb.org/t/p/w500${movie.poster}`"
+      />
+      <div class="card-detail-holder">
         <ion-card-header>
           <ion-card-title>{{movie.title}}</ion-card-title>
         </ion-card-header>
@@ -18,7 +21,7 @@
         </ion-card-content>
       </div>
     </ion-card>
-    <ion-accordion-group>
+    <ion-accordion-group class="ion-margin">
       <ion-accordion value="first">
         <ion-item slot="header" color="light">
           <ion-label>Cast</ion-label>
