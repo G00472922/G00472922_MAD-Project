@@ -18,6 +18,7 @@ import {
   providedIn: 'root',
 })
 export class MoviesService {
+  // Set env variables here.
   private readonly apiKey = env.apiKey;
   private readonly baseUrl = env.apiUrl;
 
@@ -27,6 +28,7 @@ export class MoviesService {
     this.options = { url: '' };
   }
 
+  // Gets the current trending movies.
   async getTrendingToday() {
     this.options = { url: `${this.baseUrl}/trending/movie/day?${this.apiKey}` };
 
@@ -34,6 +36,7 @@ export class MoviesService {
     return this.prepResForHome(res.data.results);
   }
 
+  // Gets the movies based on the user's search query.
   async getSearchedMovie(search: string) {
     this.options = {
       url: `${this.baseUrl}/search/movie?query=${search}&${this.apiKey}`,
@@ -43,6 +46,7 @@ export class MoviesService {
     return this.prepResForHome(res.data.results);
   }
 
+  // Utility method to produce and return a new array with only the required properties.
   prepResForHome(movies: RawMovie[]) {
     const mappedRes: Movie[] = movies.map((movie: RawMovie) => ({
       id: movie.id,
@@ -54,12 +58,14 @@ export class MoviesService {
     return mappedRes;
   }
 
+  // Returns only a movie's title, overview and poster.
   async getMovieOverview(id: number) {
     this.options = {
       url: `${this.baseUrl}/movie/${id}?${this.apiKey}`,
     };
     const res: HttpResponse = await CapacitorHttp.get(this.options);
 
+    // Destructing the res.data object for easier access to the object properties.
     const { title, overview, poster_path } = res.data;
 
     const overviewObj: Movie = {
@@ -72,6 +78,7 @@ export class MoviesService {
     return overviewObj;
   }
 
+  // Gets the movie's list of cast and crew members involved in the movie.
   async getMovieDetails(id: number) {
     this.options = {
       url: `${this.baseUrl}/movie/${id}/credits?${this.apiKey}`,
@@ -98,6 +105,7 @@ export class MoviesService {
     return { mappedCast, mappedCrew };
   }
 
+  // Gets the details of the selected person.
   async getPersonDetails(id: number) {
     this.options = {
       url: `${this.baseUrl}/person/${id}?${this.apiKey}`,
@@ -130,6 +138,7 @@ export class MoviesService {
     return member;
   }
 
+  // Gets the person's involvement in movies.
   async getPersonCredits(id: number) {
     this.options = {
       url: `${this.baseUrl}/person/${id}/movie_credits?${this.apiKey}`,

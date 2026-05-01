@@ -33,8 +33,8 @@ export class FavouriteButtonComponent implements OnInit {
 
   ngOnInit() {
     this.fs.favourites$.subscribe((faves) => {
-      for (const fav of faves) {
-        if (fav.id === this.movie().id) {
+      for (const fave of faves) {
+        if (fave.id === this.movie().id) {
           this.isFaved = true;
           break;
         }
@@ -43,10 +43,11 @@ export class FavouriteButtonComponent implements OnInit {
     });
   }
 
+  // Sets the favourite button as either favourited or not.
   get isFavourite(): Observable<boolean> {
     return this.fs.favourites$.pipe(
-      map((favs: { id: any }[]) =>
-        favs.some((m: { id: any }) => m.id === this.movie().id),
+      map((faves: { id: number }[]) =>
+        faves.some((m: { id: number }) => m.id === this.movie().id),
       ),
     );
   }
